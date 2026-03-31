@@ -99,6 +99,7 @@ public class CoreUtils {
 
     public void moveToElement(By locator){
         try{
+            waitForElementToAppear(locator);
             WebElement element = driver.findElement(locator);
             Actions action = new Actions(driver);
             action.moveToElement(element).build().perform();

@@ -2,8 +2,8 @@
 
 [![Build Status](http://localhost:8080/job/Selenium_AwsomeQATests/badge/icon)](http://localhost:8080/job/Selenium_AwsomeQATests/)
 
-![Selenium Tests](https://github.com/santhikrishnanp/AwsomeQAWith_Selenium.git/actions/workflows/tests.yml/badge.svg)
-
+[![Selenium Tests](https://github.com/santhikrishnanp/AwsomeQAWith_Selenium/actions/workflows/tests.yml/badge.svg)]
+(https://github.com/santhikrishnanp/AwsomeQAWith_Selenium/actions/workflows/tests.yml)
 # # Selenium UI Automation Framework (Page Object Model)
 
 A modular, maintainable UI automation framework built using **Selenium WebDriver**, **TestNG**, and the **Page Object Model (POM)** design pattern.  
@@ -37,20 +37,16 @@ This project is structured for scalability, CI/CD execution, and clean separatio
 ###  (Run in headless mode)
 
 ###  (mvn clean test -Dbrowser=chrome-headless -DsuiteXmlFile=testSuites/testng-regression.xml)
+### (Browser Configuratio)
+### (src/main/resources/config-awsomeqa.properties)
 
-[//]: # (Browser Configuratio)
-[//]: # (src/main/resources/config-awsomeqa.properties)
+### (or via Maven)
 
-[//]: # ()
-[//]: # (or via Maven)
+### (-Dbrowser=chrome)
 
-[//]: # (-Dbrowser=chrome)
+### (-Dbrowser=chrome-headless)
 
-[//]: # (-Dbrowser=chrome-headless)
+### (Headless mode uses)
+### (--headless=new)
 
-[//]: # ()
-[//]: # (Headless mode uses)
-
-[//]: # (--headless=new)
-
-[//]: # (--window-size=1920,3000)
+### (--window-size=1920,3000)
