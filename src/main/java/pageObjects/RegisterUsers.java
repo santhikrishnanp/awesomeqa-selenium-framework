@@ -27,25 +27,6 @@ public class RegisterUsers extends CoreUtils {
     private By terms = By.cssSelector("input[type='checkbox']");
     private By submit = By.xpath("//input[@value='Continue']");
 
-
-//    @FindBy(id = "input-lastname")
-//    WebElement lastname;
-//    @FindBy(id = "input-email")
-//    WebElement mail;
-//    @FindBy(name = "telephone")
-//    WebElement telephone;
-//    @FindBy(name = "password")
-//    WebElement password;
-//    @FindBy(name = "confirm")
-//    WebElement confirm;
-//    @FindBy(xpath = "//label[normalize-space()='No']")
-//    WebElement subscribe;
-//    @FindBy(css = "input[type='checkbox']")
-//    WebElement terms;
-//    @FindBy(xpath = "//input[@value='Continue']")
-//    WebElement submit;
-
-
     public LoginUser enterRegistrationDetails(String firstname,String lname,String email,String phone,String pass) throws InterruptedException {
        sendKeys( username,firstname);
         sendKeys( lastname,lname);
@@ -54,14 +35,6 @@ public class RegisterUsers extends CoreUtils {
         sendKeys( password,pass);
         sendKeys( confirm,pass);
         click( subscribe);
-//        username.sendKeys(firstname);
-//        lastname.sendKeys(lname);
-//        mail.sendKeys(email);
-//        telephone.sendKeys(phone);
-//        password.sendKeys(pass);
-//        confirm.sendKeys(pass);
-//        subscribe.click();
-
         WebElement element = driver.findElement(terms);
         if(!element.isSelected()){
             click( terms);

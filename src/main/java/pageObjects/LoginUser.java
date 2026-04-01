@@ -28,7 +28,7 @@ public class LoginUser extends CoreUtils {
 
     public String getSuccessMessage() {
         String message = getText(successMessage);
-//        String message = successmessage.getText();
+
         return message;
     }
 

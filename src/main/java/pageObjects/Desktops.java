@@ -32,9 +32,4 @@ public class Desktops extends CoreUtils{
         return checkout;
     }
 
-
-
-
-
-//    xpath =
 }
