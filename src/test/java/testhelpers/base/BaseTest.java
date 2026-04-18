@@ -9,6 +9,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import pageObjects.HomePage;
+import testhelpers.config.ConfigManager;
 import testhelpers.listeners.TestListeners;
 
 import java.io.FileInputStream;
@@ -18,7 +19,7 @@ import java.time.Duration;
 import java.util.Properties;
 
 @Listeners(TestListeners.class)
-public class BaseTest {
+public class BaseTest extends ConfigManager {
     public WebDriver driver;
     public HomePage homePage;
     public WebDriver initialiseWebDriver() throws IOException {
@@ -51,9 +52,11 @@ public class BaseTest {
     }
     @BeforeMethod(alwaysRun=true)
     public HomePage launchHomePage() throws IOException {
+        String baseUrl = ConfigManager.getApplicationUrl();
         driver = initialiseWebDriver();
         homePage = new HomePage(driver);
-        homePage.goTo();
+
+        homePage.goTo(baseUrl);
         return homePage;
 
     }

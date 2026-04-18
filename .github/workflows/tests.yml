@@ -19,5 +19,7 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Run Smoke suite
+        run: mvn clean test -DsuiteXmlFile=testSuites/testng-newregistration.xml -Dbrowser=chrome-headless
       - name: Run Regression suite
         run: mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=chrome-headless
