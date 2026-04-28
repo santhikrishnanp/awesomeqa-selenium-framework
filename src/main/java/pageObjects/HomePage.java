@@ -1,6 +1,7 @@
 package pageObjects;
 
 import core.CoreUtils;
+import exceptions.SeleniumFrameworkException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -63,30 +64,37 @@ public class HomePage extends CoreUtils {
 
 
     public RegisterUsers navigateToRegistrationPage(){
-        Actions actions = new Actions(driver);
-        WebElement userMenu = driver.findElement(By.xpath("//i[@class='fa fa-user']"));
-        actions.moveToElement(userMenu).perform();
-        click(myaccount);
-        click(register);
-        RegisterUsers registerUsers = new RegisterUsers(driver);
-        return registerUsers;
+        try{
+            Actions actions = new Actions(driver);
+            WebElement userMenu = driver.findElement(By.xpath("//i[@class='fa fa-user']"));
+            actions.moveToElement(userMenu).perform();
+            click(myaccount);
+            click(register);
+            RegisterUsers registerUsers = new RegisterUsers(driver);
+            return registerUsers;
+
+        } catch(Exception e){
+            throw new SeleniumFrameworkException("Failed to navigate to registration page ",e);
+        }
+
 
     }
 
     public LoginUser navigateToLoginPage(){
-        click( myaccount);
-//        myaccount.click();
-        click(login);
-//        login.click();
-        LoginUser login = new LoginUser(driver);
-        return login;
+        try{
+            click( myaccount);
+            click(login);
+            LoginUser login = new LoginUser(driver);
+            return login;
+        }catch (Exception e){
+            throw new SeleniumFrameworkException("Failed to navigate to Loginpage page ",e);
+        }
 
     }
 
     public Desktops navigateToDesktopsPage(){
         moveToElement(desktop);
         click(showAll);
-//        showAll.click();
         Desktops desktop = new Desktops(driver);
         return desktop;
 

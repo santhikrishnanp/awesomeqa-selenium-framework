@@ -1,6 +1,7 @@
 package core;
 
 import exceptions.ElementNotFoundException;
+import exceptions.TimeoutException;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -24,7 +25,7 @@ public class CoreUtils {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
             wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
 
-        } catch (TimeoutException e) {
+        } catch (Exception e) {
             throw new TimeoutException("Element not visible: " + findBy, e);
         }
 
@@ -41,7 +42,7 @@ public class CoreUtils {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT));
             wait.until(ExpectedConditions.elementToBeClickable(findBy));
-        } catch (org.openqa.selenium.TimeoutException e) {
+        } catch (Exception e) {
             throw new TimeoutException("Element not clickable: " + findBy, e);
         }
     }
@@ -50,8 +51,9 @@ public class CoreUtils {
         try {
             waitForElementToBeClickable(findBy);
             driver.findElement(findBy).click();
-        } catch (NoSuchElementException e) {
-            throw new ElementNotFoundException(findBy.toString(), e);
+        } catch (Exception e) {
+            throw new ElementNotFoundException("Failed to click the element:"+findBy.toString(),e);
+
         }
     }
 
@@ -65,6 +67,7 @@ public class CoreUtils {
         } catch (Exception e) {
             WebElement element = driver.findElement(locator);
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+            throw new ElementNotFoundException("Failed to click the element"+locator,e);
         }
     }
 

@@ -20,6 +20,19 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Smoke suite
-        run: mvn clean test -DsuiteXmlFile=testSuites/testng-newregistration.xml -Dbrowser=chrome-headless
+        run: |
+          echo "::group::Smoke Suite"
+          mvn clean test -DsuiteXmlFile=testSuites/testng-newregistration.xml -Dbrowser=chrome-headless
+          echo "::endgroup"
       - name: Run Regression suite
-        run: mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=chrome-headless
+        run: |
+          echo "::group:Regression Suite"
+          mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=chrome-headless
+          ech "::endgroup"
+
+      - name: Upload Selenium screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-screenshots
+          path: reports/screenshots/**
