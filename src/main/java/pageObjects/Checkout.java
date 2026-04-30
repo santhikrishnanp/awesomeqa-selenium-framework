@@ -18,7 +18,7 @@ public class Checkout {
         PageFactory.initElements(driver,this);
     }
 
-    By tables = By.xpath(" //table[@class ='table table-bordered']/tbody/tr");
+    By tables = By.xpath(" //div[@class='table-responsive']//tbody/tr");
 
     public int confirmCheckoutSize(){
 

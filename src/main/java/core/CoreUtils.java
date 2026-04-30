@@ -71,6 +71,20 @@ public class CoreUtils {
         }
     }
 
+    public void safeClick(WebElement element) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(element));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            element.click();
+        } catch (Exception e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+            throw new ElementNotFoundException("Failed to click the element: " + element, e);
+        }
+    }
+
+
     public void sendKeys(By locator, String text) {
         try {
             waitForElementToAppear(locator);
