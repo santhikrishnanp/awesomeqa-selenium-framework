@@ -28,7 +28,7 @@ jobs:
         run: |
           echo "::group:Regression Suite"
           mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=chrome-headless
-          ech "::endgroup"
+          echo "::endgroup"
 
       - name: Upload Selenium screenshots
         if: always()
