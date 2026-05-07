@@ -1,8 +1,8 @@
 # AwesomeQA Selenium Automation
 
-[![Build Status](http://localhost:8080/job/Selenium_AwsomeQATests/badge/icon)](http://localhost:8080/job/Selenium_AwsomeQATests/)
+[![Build Status](http://localhost:8080/job/awesomeqa-selenium-framework/badge/icon)](http://localhost:8080/job/awesomeqa-selenium-framework/)
 
-[![Selenium Tests](https://github.com/santhikrishnanp/AwsomeQAWith_Selenium/actions/workflows/tests.yml/badge.svg)]
+[![Selenium Tests](https://github.com/santhikrishnanp/awesomeqa-selenium-framework/actions/workflows/tests.yml/badge.svg)]
 (https://github.com/santhikrishnanp/AwsomeQAWith_Selenium/actions/workflows/tests.yml)
 # # Selenium UI Automation Framework (Page Object Model)
 
