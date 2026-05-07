@@ -3,7 +3,7 @@
 [![Build Status](http://localhost:8080/job/awesomeqa-selenium-framework/badge/icon)](http://localhost:8080/job/awesomeqa-selenium-framework/)
 
 [![Selenium Tests](https://github.com/santhikrishnanp/awesomeqa-selenium-framework/actions/workflows/tests.yml/badge.svg)]
-(https://github.com/santhikrishnanp/AwsomeQAWith_Selenium/actions/workflows/tests.yml)
+(https://github.com/santhikrishnanp/awesomeqa-selenium-framework/actions/workflows/tests.yml)
 # # Selenium UI Automation Framework (Page Object Model)
 
 A modular, maintainable UI automation framework built using **Selenium WebDriver**, **TestNG**, and the **Page Object Model (POM)** design pattern.  
