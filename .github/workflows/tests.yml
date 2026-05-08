@@ -56,8 +56,6 @@ jobs:
 
       chrome:
         image: selenium/node-chrome:latest
-        depends_on:
-          - selenium-hub
         env:
           SE_EVENT_BUS_HOST: selenium-hub
           SE_EVENT_BUS_PUBLISH_PORT: 4442
