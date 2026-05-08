@@ -5,6 +5,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -19,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.time.Duration;
 import java.util.Properties;
 
@@ -35,8 +37,31 @@ public class BaseTest extends ConfigManager {
                 + "/src/config-awsomeqa.properties");
         properties.load(fis);
         String browserName = System.getProperty("browser") != null ? System.getProperty("browser") : properties.getProperty("browser");
-        if (browserName.contains("chrome")) {
-            ChromeOptions options = new ChromeOptions();
+        ChromeOptions options = new ChromeOptions();
+        // ----------------------------
+// 1. REMOTE (Docker Grid)
+// ----------------------------
+        if (browserName.contains("remote")) {
+
+            if (browserName.contains("headless")) {
+                options.addArguments("--headless=new");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--disable-gpu");
+                options.addArguments("--window-size=1920,3000");
+            }
+
+            driver = new RemoteWebDriver(
+                    new URL("http://localhost:4444/wd/hub"),
+                    options
+            );
+
+        }
+        // ----------------------------
+        // 2. LOCAL (GitHub Chrome)
+        // ----------------------------
+        else if (browserName.contains("chrome")) {
+
             WebDriverManager.chromedriver().setup();
 
             if (browserName.contains("headless")) {

@@ -2,13 +2,22 @@ name: Selenium Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      runMode:
+        description: "Choose execution mode"
+        required: true
+        default: "local"
+        type: choice
+        options:
+          - local
+          - docker
   schedule:
     - cron: "0 2 * * *"   # runs daily at 2 AM
 
 jobs:
-  build:
+  local-run:
+    if: ${{ github.event.inputs.runMode == 'local' }}
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -18,6 +27,61 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+      - name: Run Smoke suite
+        run: |
+          echo "::group::Smoke Suite"
+          mvn clean test -DsuiteXmlFile=testSuites/testng-newregistration.xml -Dbrowser=chrome-headless
+          echo "::endgroup"
+      - name: Run Regression suite
+        run: |
+          echo "::group::Regression Suite"
+          mvn clean test -DsuiteXmlFile=testSuites/testng-regression.xml -Dbrowser=chrome-headless
+          echo "::endgroup"
+
+      - name: Upload Selenium screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium-screenshots
+          path: reports/screenshots/**
+  docker-run:
+    if: ${{ github.event.inputs.runMode == 'docker' || github.event_name == 'schedule' }}
+    runs-on: ubuntu-latest
+
+    services:
+      selenium-hub:
+        image: selenium/hub:latest
+        ports:
+          - 4444:4444
+
+      chrome:
+        image: selenium/node-chrome:latest
+        depends_on:
+          - selenium-hub
+        env:
+          SE_EVENT_BUS_HOST: selenium-hub
+          SE_EVENT_BUS_PUBLISH_PORT: 4442
+          SE_EVENT_BUS_SUBSCRIBE_PORT: 4443
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Wait for Selenium Grid
+        run: |
+          echo "Waiting for Selenium Grid..."
+          for i in {1..10}; do
+            if curl -s http://localhost:4444/status | grep -q "ready"; then
+              echo "Grid is ready"
+              break
+            fi
+            sleep 3
+          done
 
       - name: Run Smoke suite
         run: |
